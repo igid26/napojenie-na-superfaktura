@@ -10,8 +10,23 @@
 <body>
 
 
-    <form action="" method="post">
+    <form action="" method="post" id="invoiceForm">
     <h1>Jednoduchý formulár</h1>
+
+        <section>
+            <div id="itemsContainer">
+            <table class="moja-tabulka">
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="nazov-polozky" placeholder="Názov položky" required></td>
+                        <td><input type="number" name="suma-polozky" placeholder="Suma položky" required></td>
+                        <td><input type="text" name="cas-polozky" placeholder="Čas položky"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" id="addItemButton">Pridať položku</button>  
+        </section>
 
         <section class="dodavatel">
             <h2>Dodávateľ</h2>
@@ -48,6 +63,9 @@
         </section>
 
     <button type="submit" id="btnVytvorFakturu">Odoslať</button>
+
+
+        
 
 
     </form>

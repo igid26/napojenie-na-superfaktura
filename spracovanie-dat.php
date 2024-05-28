@@ -177,7 +177,7 @@ function vytvorenie_faktury_superfaktura() {
     // Dôležité: Zastav spracovanie požiadavky po výstupe z funkcie
     
 }
-wp_die();
+die();
 }
 
 vytvorenie_faktury_superfaktura();

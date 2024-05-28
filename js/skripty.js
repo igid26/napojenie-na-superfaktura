@@ -1,7 +1,5 @@
 
 
-var ajaxurl = 'spracovanie-dat.php';
-
 jQuery(document).ready(function ($) {
     let itemCount = 1;
 
@@ -66,7 +64,7 @@ jQuery(document).ready(function ($) {
         };
 
         $.ajax({
-            url: ajaxurl,
+            url: 'spracovanie-dat.php',
             type: 'POST',
             data: postData,
             success: function (response) {
