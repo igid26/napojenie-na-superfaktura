@@ -12,7 +12,7 @@ function vytvorenie_faktury_superfaktura() {
 //prístupové údaje k API
     $api_key = '.....'; //API KEY
     $company_id = '....';  //company id
-    $email = '.....';
+    $email = '.....'; // email
 
     // Endpoint pre vytvorenie novej faktúry
     $api_url = 'https://moja.superfaktura.sk/invoices/create/';
@@ -20,40 +20,40 @@ function vytvorenie_faktury_superfaktura() {
     
       $formData = !empty($_POST['data']) ? $_POST['data'] : '';
 
-    // Kontrola, zda byla data předána
+    // Kontrola, či dáta v poli existujú
     if (!empty($formData)) {
-        // Získání dat z formuláře s kontrolou prázdných hodnot
-       $nazov_spolocnosti = !empty($formData['nazov_spolecnosti_dpdavatel']) ? $formData['nazov_spolecnosti_dpdavatel'] : '';
-$ulica_dodavatel = !empty($formData['ulica_dodavatel']) ? $formData['ulica_dodavatel'] : '';
-$cislo_dodavatel = !empty($formData['cislo_dodavatel']) ? $formData['cislo_dodavatel'] : '';
-$psc_dodavatel = !empty($formData['psc_dodavatel']) ? $formData['psc_dodavatel'] : '';
-$mesto_dodavatel = !empty($formData['mesto_dodavatel']) ? $formData['mesto_dodavatel'] : '';
-$ico_dodavatel = !empty($formData['ico_dodavatel']) ? $formData['ico_dodavatel'] : '';
-$dic_dodavatel = !empty($formData['dic_dodavatel']) ? $formData['dic_dodavatel'] : '';
-$ic_dph_dodavatel = !empty($formData['ic_dph_dodavatel']) ? $formData['ic_dph_dodavatel'] : '';
-$iban_dodavatel = !empty($formData['iban_dodavatel']) ? $formData['iban_dodavatel'] : '';
-$vs_dodavatel = !empty($formData['vs_dodavatel']) ? $formData['vs_dodavatel'] : '';
-$sp_dodavatel = !empty($formData['sp_dodavatel']) ? $formData['sp_dodavatel'] : '';
-$email_dodavatel = !empty($formData['email_dodavatel']) ? $formData['email_dodavatel'] : '';
-$telefon_dodavatel = !empty($formData['telefon_dodavatel']) ? $formData['telefon_dodavatel'] : '';
-$web_dodavatel = !empty($formData['web_dodavatel']) ? $formData['web_dodavatel'] : '';
+        
+        $nazov_spolocnosti = !empty($formData['nazov_spolecnosti_dpdavatel']) ? $formData['nazov_spolecnosti_dpdavatel'] : '';
+        $ulica_dodavatel = !empty($formData['ulica_dodavatel']) ? $formData['ulica_dodavatel'] : '';
+        $cislo_dodavatel = !empty($formData['cislo_dodavatel']) ? $formData['cislo_dodavatel'] : '';
+        $psc_dodavatel = !empty($formData['psc_dodavatel']) ? $formData['psc_dodavatel'] : '';
+        $mesto_dodavatel = !empty($formData['mesto_dodavatel']) ? $formData['mesto_dodavatel'] : '';
+        $ico_dodavatel = !empty($formData['ico_dodavatel']) ? $formData['ico_dodavatel'] : '';
+        $dic_dodavatel = !empty($formData['dic_dodavatel']) ? $formData['dic_dodavatel'] : '';
+        $ic_dph_dodavatel = !empty($formData['ic_dph_dodavatel']) ? $formData['ic_dph_dodavatel'] : '';
+        $iban_dodavatel = !empty($formData['iban_dodavatel']) ? $formData['iban_dodavatel'] : '';
+        $vs_dodavatel = !empty($formData['vs_dodavatel']) ? $formData['vs_dodavatel'] : '';
+        $sp_dodavatel = !empty($formData['sp_dodavatel']) ? $formData['sp_dodavatel'] : '';
+        $email_dodavatel = !empty($formData['email_dodavatel']) ? $formData['email_dodavatel'] : '';
+        $telefon_dodavatel = !empty($formData['telefon_dodavatel']) ? $formData['telefon_dodavatel'] : '';
+        $web_dodavatel = !empty($formData['web_dodavatel']) ? $formData['web_dodavatel'] : '';
 
-$nazov_klient_final = !empty($formData['nazov_klient_final']) ? $formData['nazov_klient_final'] : '';
-$ulica_klient_final = !empty($formData['ulica_klient_final']) ? $formData['ulica_klient_final'] : '';
-$cislo_klient_final = !empty($formData['cislo_klient_final']) ? $formData['cislo_klient_final'] : '';
-$psc_klient_final = !empty($formData['psc_klient_final']) ? $formData['psc_klient_final'] : '';
-$mesto_klient_final = !empty($formData['mesto_klient_final']) ? $formData['mesto_klient_final'] : '';
-$ico_klient_final = !empty($formData['ico_klient_final']) ? $formData['ico_klient_final'] : '';
-$dic_klient_final = !empty($formData['dic_klient_final']) ? $formData['dic_klient_final'] : '';
-$ic_dph_klient_final = !empty($formData['ic_dph_klient_final']) ? $formData['ic_dph_klient_final'] : '';
-$datum_vystavenia = !empty($formData['datum_vystavenia']) ? $formData['datum_vystavenia'] : '';
-$datum_dodania = !empty($formData['datum_dodania']) ? $formData['datum_dodania'] : '';
-$datum_splatnosti = !empty($formData['datum_splatnosti']) ? $formData['datum_splatnosti'] : '';
+        $nazov_klient_final = !empty($formData['nazov_klient_final']) ? $formData['nazov_klient_final'] : '';
+        $ulica_klient_final = !empty($formData['ulica_klient_final']) ? $formData['ulica_klient_final'] : '';
+        $cislo_klient_final = !empty($formData['cislo_klient_final']) ? $formData['cislo_klient_final'] : '';
+        $psc_klient_final = !empty($formData['psc_klient_final']) ? $formData['psc_klient_final'] : '';
+        $mesto_klient_final = !empty($formData['mesto_klient_final']) ? $formData['mesto_klient_final'] : '';
+        $ico_klient_final = !empty($formData['ico_klient_final']) ? $formData['ico_klient_final'] : '';
+        $dic_klient_final = !empty($formData['dic_klient_final']) ? $formData['dic_klient_final'] : '';
+        $ic_dph_klient_final = !empty($formData['ic_dph_klient_final']) ? $formData['ic_dph_klient_final'] : '';
+        $datum_vystavenia = !empty($formData['datum_vystavenia']) ? $formData['datum_vystavenia'] : '';
+        $datum_dodania = !empty($formData['datum_dodania']) ? $formData['datum_dodania'] : '';
+        $datum_splatnosti = !empty($formData['datum_splatnosti']) ? $formData['datum_splatnosti'] : '';
 
         
   
   
-$nove_radky = !empty($formData['tabulka']) ? $formData['tabulka'] : array();
+        $nove_radky = !empty($formData['tabulka']) ? $formData['tabulka'] : array();
 
 
     // Dáta pre novú faktúru
@@ -180,6 +180,4 @@ $nove_radky = !empty($formData['tabulka']) ? $formData['tabulka'] : array();
 wp_die();
 }
 
-// Pridaj AJAX hooky
-add_action('wp_ajax_vytvorenie_faktury_superfaktura', 'vytvorenie_faktury_superfaktura');
-add_action('wp_ajax_nopriv_vytvorenie_faktury_superfaktura', 'vytvorenie_faktury_superfaktura');
+vytvorenie_faktury_superfaktura();

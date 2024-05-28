@@ -1,18 +1,25 @@
-var baseurl = window.location.origin;
 
 
-    zakladurl = window.location.origin;
-
-
-ajaxurl = zakladurl + 'spracovanie-dat.php';
-
-// var ajaxurl = zakladurl + '/wp-admin/admin-ajax.php'; - url pre prípad použitia WP Ajax
+var ajaxurl = 'spracovanie-dat.php';
 
 jQuery(document).ready(function ($) {
+    let itemCount = 1;
+
+    $('#addItemButton').on('click', function () {
+        const newItemRow = `
+                    <tr>
+                        <td><input type="text" name="nazov-polozky" placeholder="Názov položky" required></td>
+                        <td><input type="number" name="suma-polozky" placeholder="Suma položky" required></td>
+                        <td><input type="text" name="cas-polozky" placeholder="Čas položky"></td>
+                    </tr>
+                `;
+        $('.moja-tabulka tbody').append(newItemRow);
+        itemCount++;
+    });
+
     $('#btnVytvorFakturu').on('click', function () {
-        // Ruèní shromáždìní dat z inputù a selectù
         var formData = {
-            nazov_spolecnosti_dpdavatel: $('#nazov-spolocnosti-dpdavatel').text(),
+            nazov_spolecnosti_dpdavatel: $('#nazov-spolocnosti-dpdavatel').val(),
             ulica_dodavatel: $('#ulica-dodavatel').val(),
             cislo_dodavatel: $('#cislo-dodavatel').val(),
             psc_dodavatel: $('#psc-dodavatel').val(),
@@ -36,8 +43,7 @@ jQuery(document).ready(function ($) {
             ic_dph_klient_final: $('#ic-dph-klient-final').val(),
             datum_vystavenia: $('#datum-vystavenia').val(),
             datum_dodania: $('#datum-dodania').val(),
-            datum_splatnosti: $('#datum-splatnosti').val(),
-            // Další pole a data podle potøeby
+            datum_splatnosti: $('#datum-splatnosti').val()
         };
 
         var noveRadkyData = [];
@@ -56,8 +62,7 @@ jQuery(document).ready(function ($) {
         console.log(formData);
 
         var postData = {
-            action: 'vytvorenie_faktury_superfaktura',
-            data: formData // Konvertujeme data na JSON
+            data: formData
         };
 
         $.ajax({
@@ -65,11 +70,11 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             data: postData,
             success: function (response) {
-                // Spracuj úspešnú odpoveï
+                alert('Faktúra bola úspešne vytvorená!');
                 console.log(response);
             },
             error: function (error) {
-                // Spracuj chybu
+                alert('Došlo k chybe pri vytváraní faktúry.');
                 console.log(error.responseText);
             }
         });
