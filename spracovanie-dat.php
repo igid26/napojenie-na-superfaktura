@@ -4,15 +4,16 @@
  * 
  * Napojenie na Super Faktura API a následný zápis dát. Je potrebné zadať API údaje
  * 
+ *
  */
 
 function vytvorenie_faktury_superfaktura() {
     
 
-//prístupové údaje k API
-    $api_key = '.....'; //API KEY
-    $company_id = '....';  //company id
-    $email = '.....'; // email
+//prístupové údaje k API - nájdete ich v administrácií SuperFaktura Násstroje > API Prístup. Musíte mať aktivovaný najvyššie predplatné.
+    $api_key = '....................'; //API KEY
+    $company_id = '..........';  //company id
+    $email = '..'; // email
 
     // Endpoint pre vytvorenie novej faktúry
     $api_url = 'https://moja.superfaktura.sk/invoices/create/';
@@ -120,12 +121,14 @@ function vytvorenie_faktury_superfaktura() {
     
     foreach ($nove_radky as $radek) {
     
+    //Do nového riadku pridáva nový popis ss názvom odporacované hodiny.
     if(!empty($radek['cas_polozky'])) {
     $cas = 'Odpracované hodiny:' . $radek['cas_polozky'];
     } else {
     $cas = '';
     }
     
+    //Riadok novej položky vo faktúre
     $novy_invoice_item = array(
         "description" => $cas,
         "name" => $radek['nazov_polozky'],
@@ -142,14 +145,13 @@ function vytvorenie_faktury_superfaktura() {
         )
     );
 
-    // Přidat nový InvoiceItem do pole $data["InvoiceItem"]
+    // Přidat nový InvoiceItem do pola $data["InvoiceItem"]
     $data["InvoiceItem"][] = $novy_invoice_item;
-}
+    }
 
     // Konvertuj dáta na formát JSON
     $json_data = json_encode($data);
-    
-    
+      
 
     $ch = curl_init($api_url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -168,13 +170,13 @@ function vytvorenie_faktury_superfaktura() {
     if ($http_code == 200) {
         //echo "Faktúra bola úspešne vytvorená.\n";
         $invoice_data = json_decode($response, true);
-        echo $response;
+        echo $response; //Vracia odpoveď zo servera aj v prípade, že obsahuje chyby napojenia. Napríklad neplatné údaje alebo prázdne polia. 
+
     } else {
         echo "Chyba pri vytváraní faktúry. HTTP kód: $http_code\n";
         echo "Odpoveď: $response\n";
     }
 
-    // Dôležité: Zastav spracovanie požiadavky po výstupe z funkcie
     
 }
 die();

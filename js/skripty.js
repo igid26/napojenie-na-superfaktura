@@ -1,9 +1,9 @@
-
-
 jQuery(document).ready(function ($) {
+    console.log("Document is ready");
     let itemCount = 1;
 
     $('#addItemButton').on('click', function () {
+        console.log("Add item button clicked");
         const newItemRow = `
                     <tr>
                         <td><input type="text" name="nazov-polozky" placeholder="Názov položky" required></td>
@@ -16,6 +16,8 @@ jQuery(document).ready(function ($) {
     });
 
     $('#btnVytvorFakturu').on('click', function () {
+        event.preventDefault(); 
+
         var formData = {
             nazov_spolecnosti_dpdavatel: $('#nazov-spolocnosti-dpdavatel').val(),
             ulica_dodavatel: $('#ulica-dodavatel').val(),
@@ -47,17 +49,26 @@ jQuery(document).ready(function ($) {
         var noveRadkyData = [];
 
         $('.moja-tabulka tbody tr').each(function (index) {
-            var novyRadekData = {
-                nazov_polozky: $(this).find('[name="nazov-polozky"]').val(),
-                cas_polozky: $(this).find('[name="cas-polozky"]').val(),
-                suma_polozky: $(this).find('[name="suma-polozky"]').val()
-            };
-            noveRadkyData.push(novyRadekData);
+            var nazovPolozky = $(this).find('[name="nazov-polozky"]').val();
+            var casPolozky = $(this).find('[name="cas-polozky"]').val();
+            var sumaPolozky = $(this).find('[name="suma-polozky"]').val();
+
+            // Logovanie hodnôt pre každý riadok
+            console.log("Row " + (index + 1) + ": ", nazovPolozky, casPolozky, sumaPolozky);
+
+            if (nazovPolozky || casPolozky || sumaPolozky) {
+                var novyRadekData = {
+                    nazov_polozky: nazovPolozky,
+                    cas_polozky: casPolozky,
+                    suma_polozky: sumaPolozky
+                };
+                noveRadkyData.push(novyRadekData);
+            }
         });
 
         formData['tabulka'] = noveRadkyData;
 
-        console.log(formData);
+        console.log("Form data collected:", formData);
 
         var postData = {
             data: formData
@@ -68,8 +79,14 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             data: postData,
             success: function (response) {
-                alert('Faktúra bola úspešne vytvorená!');
-                console.log(response);
+                var responseData = JSON.parse(response);
+                if (responseData.error === 0) { // Ak neobsahuje žiadne chyby odošle faktúru a zobrazí alert
+                    alert("Faktúra bola úspešne vytvorená."); // Zobraziť alert len pri úspechu
+                    console.log(responseData.data); // Logovať údaje faktúry
+                } else {
+                    var chyba = responseData.error_message.type[0]; 
+                    console.error("Chyba pri vytváraní faktúry:", chyba); // Logovať chybu pri vytváraní faktúry
+                }
             },
             error: function (error) {
                 alert('Došlo k chybe pri vytváraní faktúry.');
