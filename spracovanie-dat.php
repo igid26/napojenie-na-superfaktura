@@ -2,7 +2,7 @@
 
 /**
  * 
- * Napojenie na Super Faktura API a následný zápis dát. Je potrebné zadať API údaje
+ * Napojenie na Super Faktura API a následný zápis dát. Je potrebné zadať API údaje. Formulár musí obsahovať aspoň jednu položky na fakturáciu. 
  * 
  *
  */
